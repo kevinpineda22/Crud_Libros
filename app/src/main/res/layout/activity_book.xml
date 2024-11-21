@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".book"
+    android:orientation="vertical"
+    >
+    <TextView
+        android:text="CRUD de Libros"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"
+        />
+    <ImageView
+        android:layout_gravity="center"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/books"
+        android:scaleType="fitXY"
+        android:layout_marginBottom="20dp"
+        />
+    <EditText
+        android:id="@+id/etidBook"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:hint="Id Libro"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:layout_marginTop="10dp"
+        android:id="@+id/etName"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:hint="Nombre"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:inputType="textPersonName" />
+    <EditText
+        android:id="@+id/etAuthor"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:hint="Autor"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:inputType="textPersonName" />
+
+    <Switch
+        android:id="@+id/swAvalable"
+        android:text="Disponible"
+        android:layout_gravity="center"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+    />
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:id="@+id/tvMessageB"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:layout_marginTop="2dp"
+        android:id="@+id/btnSavee"
+        android:layout_width="200dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:text="Guardar"    />
+    <Button
+        android:layout_marginTop="2dp"
+        android:id="@+id/btnSearch"
+        android:layout_width="200dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:text="Buscar"    />
+
+    <Button
+        android:layout_marginTop="2dp"
+        android:id="@+id/btnedit"
+        android:layout_width="200dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:text="Editar"    />
+    <Button
+        android:layout_marginTop="2dp"
+        android:id="@+id/btndelete"
+        android:layout_width="200dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:text="Eliminar"    />
+    <Button
+        android:layout_marginTop="2dp"
+        android:id="@+id/btnlist"
+        android:layout_width="200dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:text="listar"    />
+
+</LinearLayout>

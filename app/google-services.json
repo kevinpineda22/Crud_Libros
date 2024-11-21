@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "131070966650",
+    "project_id": "proyectonube-c94fb",
+    "storage_bucket": "proyectonube-c94fb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131070966650:android:18267d03a97107451e34c3",
+        "android_client_info": {
+          "package_name": "com.example.applibraryfbello"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACN7Pr_MegVBxDaH3oFaUOeta-PhXPzn0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131070966650:android:d8848cb6d8557a1c1e34c3",
+        "android_client_info": {
+          "package_name": "com.example.proyectonube"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACN7Pr_MegVBxDaH3oFaUOeta-PhXPzn0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
