@@ -30,7 +30,7 @@ import java.util.Map;
 
 public class book extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    EditText idbook, author, name;
+    EditText idbook, name, cantidadDeLibros, precio;
     Switch sAvailable;
     Button bSave, bSearch, bEdit, bDelete, blist;
     TextView message;
@@ -38,16 +38,12 @@ public class book extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_book);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
         idbook = findViewById(R.id.etidBook);
         name = findViewById(R.id.etName);
-        author = findViewById(R.id.etAuthor);
+        cantidadDeLibros = findViewById(R.id.etCantidadDeLibros); // Nuevo campo
+        precio = findViewById(R.id.etPrecio); // Nuevo campo
         sAvailable = findViewById(R.id.swAvalable);
         message = findViewById(R.id.tvMessageB);
         bSave = findViewById(R.id.btnSavee);
@@ -61,7 +57,7 @@ public class book extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!idbook.getText().toString().isEmpty()) {
-                    db.collection("book")
+                    db.collection("productos")
                             .whereEqualTo("idbook", idbook.getText().toString())
                             .get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -72,7 +68,9 @@ public class book extends AppCompatActivity {
                                             for (QueryDocumentSnapshot document : task.getResult()) {
                                                 // Asignar el contenido de los campos a los datos de pantalla
                                                 name.setText(document.getString("name"));
-                                                author.setText(document.getString("author"));
+                                                cantidadDeLibros.setText(String.valueOf(document.getLong("cantidadDeLibros")));;
+                                                precio.setText(String.valueOf(document.getDouble("precio")));
+
                                                 sAvailable.setChecked(document.getDouble("available") == 1);
                                             }
                                         } else {
@@ -95,12 +93,13 @@ public class book extends AppCompatActivity {
             public void onClick(View view) {
                 String mIdBook = idbook.getText().toString();
                 String mName = name.getText().toString();
-                String mAuthor = author.getText().toString();
+                int mCantidadDeLibros = Integer.parseInt(cantidadDeLibros.getText().toString());
+                double mPrecio = Double.parseDouble(precio.getText().toString());
                 int mAvailable = sAvailable.isChecked() ? 1 : 0;
 
-                if (checkData(mIdBook, mName, mAuthor)) {
-                    db.collection("book")
-                            .whereEqualTo("idbook", idbook.getText().toString())
+                if (checkData(mIdBook, mName, mCantidadDeLibros,mPrecio)) {
+                    db.collection("productos")
+                            .whereEqualTo("idbook", mIdBook)
                             .get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
@@ -110,9 +109,10 @@ public class book extends AppCompatActivity {
                                             Map<String, Object> mapBook = new HashMap<>();
                                             mapBook.put("idbook", mIdBook);
                                             mapBook.put("name", mName);
-                                            mapBook.put("author", mAuthor);
+                                            mapBook.put("cantidadDeLibros", mCantidadDeLibros);
+                                            mapBook.put("precio", mPrecio);
                                             mapBook.put("available", mAvailable);
-                                            db.collection("book")
+                                            db.collection("productos")
                                                     .add(mapBook)
                                                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                         @Override
@@ -148,24 +148,26 @@ public class book extends AppCompatActivity {
             public void onClick(View view) {
                 String mIdBook = idbook.getText().toString();
                 String mName = name.getText().toString();
-                String mAuthor = author.getText().toString();
+                int mCantidadDeLibros = Integer.parseInt(cantidadDeLibros.getText().toString());
+                double mPrecio = Double.parseDouble(precio.getText().toString());
                 int mAvailable = sAvailable.isChecked() ? 1 : 0;
 
-                if (checkData(mIdBook, mName, mAuthor)) {
-                    db.collection("book")
+                if (checkData(mIdBook, mName ,mCantidadDeLibros,mPrecio)) {
+                    db.collection("productos")
                             .whereEqualTo("idbook", mIdBook)
                             .get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful()) {
-                                        if (!task.getResult().isEmpty()) { // Si el libro existe
+                                        if (!task.getResult().isEmpty()) {
                                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                                String docId = document.getId(); // Obtener el ID del documento
-                                                db.collection("book").document(docId)
+                                                String docId = document.getId();
+                                                db.collection("productos").document(docId)
                                                         .update(
                                                                 "name", mName,
-                                                                "author", mAuthor,
+                                                                "cantidadDeLibros", mCantidadDeLibros,
+                                                                "precio", mPrecio,
                                                                 "available", mAvailable
                                                         )
                                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -179,45 +181,36 @@ public class book extends AppCompatActivity {
                                                             @Override
                                                             public void onFailure(@NonNull Exception e) {
                                                                 message.setTextColor(Color.parseColor("#E6370A"));
-                                                                message.setText("Error al actualizar el libro. Inténtelo más tarde.");
+                                                                message.setText("Error al actualizar el libro.");
                                                             }
                                                         });
                                             }
-                                        } else {
-                                            message.setTextColor(Color.parseColor("#E6370A"));
-                                            message.setText("El libro con este ID no existe.");
                                         }
-                                    } else {
-                                        message.setTextColor(Color.parseColor("#E6370A"));
-                                        message.setText("Error al buscar el libro.");
                                     }
                                 }
                             });
-                } else {
-                    message.setTextColor(Color.parseColor("#FF4545"));
-                    message.setText("Debe diligenciar todos los datos.");
                 }
             }
         });
 
-        // Evento de eliminar libro
+        // Eliminar libro
         bDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String mIdBook = idbook.getText().toString();
 
                 if (!mIdBook.isEmpty()) {
-                    db.collection("book")
+                    db.collection("productos")
                             .whereEqualTo("idbook", mIdBook)
                             .get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful()) {
-                                        if (!task.getResult().isEmpty()) { // Si el libro existe
+                                        if (!task.getResult().isEmpty()) {
                                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                                String docId = document.getId(); // Obtener el ID del documento
-                                                db.collection("book").document(docId)
+                                                String docId = document.getId();
+                                                db.collection("productos").document(docId)
                                                         .delete()
                                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                             @Override
@@ -230,33 +223,30 @@ public class book extends AppCompatActivity {
                                                             @Override
                                                             public void onFailure(@NonNull Exception e) {
                                                                 message.setTextColor(Color.parseColor("#E6370A"));
-                                                                message.setText("Error al eliminar el libro. Inténtelo más tarde.");
+                                                                message.setText("Error al eliminar el libro.");
                                                             }
                                                         });
                                             }
-                                        } else {
-                                            message.setTextColor(Color.parseColor("#E6370A"));
-                                            message.setText("El libro con este ID no existe.");
                                         }
-                                    } else {
-                                        message.setTextColor(Color.parseColor("#E6370A"));
-                                        message.setText("Error al buscar el libro.");
                                     }
                                 }
                             });
-                } else {
-                    message.setTextColor(Color.parseColor("#FF4545"));
-                    message.setText("Debe ingresar el id del libro a eliminar.");
                 }
             }
         });
-
     }
 
-    private boolean checkData(String mIdBook, String mName, String mAuthor) {
-        return !mIdBook.isEmpty() && !mName.isEmpty() && !mAuthor.isEmpty();
+    private boolean checkData(String mIdBook, String mName, int mCantidadDeLibros, double mPrecio) {
+        // Verificar que los campos no estén vacíos o no sean inválidos
+        return !mIdBook.isEmpty() &&
+                !mName.isEmpty() &&
+                mCantidadDeLibros > 0 &&  // Asegurarse de que la cantidad sea mayor a 0
+                mPrecio > 0;             // Asegurarse de que el precio sea mayor a 0
     }
+
 }
+
+
 
 
 
