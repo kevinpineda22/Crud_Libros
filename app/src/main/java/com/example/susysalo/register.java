@@ -56,7 +56,7 @@ public class register extends AppCompatActivity {
                                         message.setTextColor(Color.parseColor("#347928"));
                                         message.setText("Cuenta creada correctamente.");
                                         finish();
-                                        startActivity(new Intent(getApplicationContext(), book.class));
+                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                     }
                                     else{
                                         message.setTextColor(Color.parseColor("#C62E2E"));
