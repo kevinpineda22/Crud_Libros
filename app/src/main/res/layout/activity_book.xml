@@ -5,10 +5,12 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".book"
     android:orientation="vertical"
-    >
+    android:padding="16dp"
+    android:background="@drawable/gradient_background"
+    tools:context=".book">
 
+    <!-- Imagen del producto -->
     <ImageView
         android:layout_width="191dp"
         android:layout_height="122dp"
@@ -18,85 +20,159 @@
         android:scaleType="fitXY"
         android:src="@drawable/susysalo" />
 
+    <!-- Campo de referencia -->
     <EditText
-
-
         android:id="@+id/etidBook"
-        android:layout_width="207dp"
-        android:layout_height="74dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
         android:hint="Referencia"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textColor="@android:color/black"
+        android:backgroundTint="@color/morado"
+        android:padding="12dp"
+        android:textColorHint="@android:color/darker_gray"
+        android:layout_marginBottom="10dp" />
 
+    <!-- Campo de nombre del producto -->
     <EditText
-        android:layout_marginTop="10dp"
         android:id="@+id/etName"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Nombre del Producto"
         android:layout_gravity="center"
         android:gravity="center"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textColor="@android:color/black"
+        android:backgroundTint="@color/morado"
+        android:padding="12dp"
+        android:textColorHint="@android:color/darker_gray"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp" />
+
+    <!-- Campo de cantidad -->
     <EditText
         android:id="@+id/etCantidadDeLibros"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_gravity="center"
-        android:hint="Unidad "
-        android:inputType="number" />
+        android:hint="Unidad"
+        android:inputType="number"
+        android:textColor="@android:color/black"
+        android:backgroundTint="@color/morado"
+        android:padding="12dp"
+        android:textColorHint="@android:color/darker_gray"
+        android:layout_marginBottom="10dp" />
+
+    <!-- Campo de precio -->
     <EditText
         android:id="@+id/etPrecio"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_gravity="center"
         android:hint="Precio"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal"
+        android:textColor="@android:color/black"
+        android:backgroundTint="@color/morado"
+        android:padding="12dp"
+        android:textColorHint="@android:color/darker_gray"
+        android:layout_marginBottom="10dp" />
 
+    <!-- Switch para disponibilidad -->
     <Switch
         android:id="@+id/swAvalable"
         android:text="Disponible"
         android:layout_gravity="center"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-    />
+        android:layout_marginBottom="10dp" />
+
+    <!-- Mensaje -->
     <TextView
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
         android:id="@+id/tvMessageB"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_red_dark"
+        android:gravity="center"
+        android:layout_marginTop="20dp" />
 
-    <Button
-        android:layout_marginTop="2dp"
-        android:id="@+id/btnSavee"
-        android:layout_width="200dp"
-        android:layout_gravity="center"
+    <!-- Contenedor para los botones (primera fila) -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Guardar"    />
-    <Button
-        android:layout_marginTop="2dp"
-        android:id="@+id/btnSearch"
-        android:layout_width="200dp"
-        android:layout_gravity="center"
-        android:layout_height="wrap_content"
-        android:text="Buscar"    />
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
 
-    <Button
-        android:layout_marginTop="2dp"
-        android:id="@+id/btnedit"
-        android:layout_width="200dp"
-        android:layout_gravity="center"
+        <!-- Botón Guardar -->
+        <Button
+            android:id="@+id/btnSavee"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Guardar"
+            android:backgroundTint="@color/morado"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:padding="12dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp" />
+
+        <!-- Botón Buscar -->
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Buscar"
+            android:backgroundTint="@color/morado"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:padding="12dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp" />
+    </LinearLayout>
+
+    <!-- Contenedor para los botones (segunda fila) -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Editar"    />
-    <Button
-        android:layout_marginTop="2dp"
-        android:id="@+id/btndelete"
-        android:layout_width="200dp"
-        android:layout_gravity="center"
-        android:layout_height="wrap_content"
-        android:text="Eliminar"    />
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+        <!-- Botón Editar -->
+        <Button
+            android:id="@+id/btnedit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Editar"
+            android:backgroundTint="@color/morado"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:padding="12dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp" />
+
+        <!-- Botón Eliminar -->
+        <Button
+            android:id="@+id/btndelete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Eliminar"
+            android:backgroundTint="@color/morado"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:padding="12dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp" />
+    </LinearLayout>
 
 </LinearLayout>
