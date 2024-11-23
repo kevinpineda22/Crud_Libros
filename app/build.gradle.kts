@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.applibraryfbello"
+    namespace = "com.example.susysalo"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.applibraryfbello"
+        applicationId = "com.example.susysalo"
         minSdk = 28
         targetSdk = 34
         versionCode = 1

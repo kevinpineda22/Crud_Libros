@@ -8,30 +8,25 @@
     tools:context=".book"
     android:orientation="vertical"
     >
-    <TextView
-        android:text="CRUD de Libros"
-        android:layout_marginTop="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:layout_marginBottom="20dp"
-        />
+
     <ImageView
-        android:layout_gravity="center"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/books"
-        android:scaleType="fitXY"
-        android:layout_marginBottom="20dp"
-        />
+    android:layout_width="220dp"
+    android:layout_height="150dp"
+    android:layout_gravity="center"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="20dp"
+    android:scaleType="fitXY"
+    android:src="@drawable/susysalo" />
+
     <EditText
+
+
         android:id="@+id/etidBook"
-        android:layout_width="300dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:hint="Id Libro"
+        android:hint="Referencia"
         android:inputType="textPersonName" />
 
     <EditText
@@ -39,7 +34,7 @@
         android:id="@+id/etName"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:hint="Nombre"
+        android:hint="Nombre del Producto"
         android:layout_gravity="center"
         android:gravity="center"
         android:inputType="textPersonName" />
@@ -103,12 +98,5 @@
         android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:text="Eliminar"    />
-    <Button
-        android:layout_marginTop="2dp"
-        android:id="@+id/btnlist"
-        android:layout_width="200dp"
-        android:layout_gravity="center"
-        android:layout_height="wrap_content"
-        android:text="listar"    />
 
 </LinearLayout>

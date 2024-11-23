@@ -1,4 +1,4 @@
-package com.example.applibraryfbello;
+package com.example.susysalo;
 
 import android.content.Intent;
 import android.graphics.Color;

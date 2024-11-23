@@ -1,4 +1,4 @@
-package com.example.applibraryfbello;
+package com.example.susysalo;
 
 import org.junit.Test;
 

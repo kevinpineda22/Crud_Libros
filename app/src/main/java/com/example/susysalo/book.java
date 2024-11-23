@@ -1,4 +1,4 @@
-package com.example.applibraryfbello;
+package com.example.susysalo;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,12 +8,8 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -23,16 +19,15 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.ktx.Firebase;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class book extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    EditText idbook, name, cantidadDeLibros, precio;
+    EditText Referencia, name, Unidad, precio;
     Switch sAvailable;
-    Button bSave, bSearch, bEdit, bDelete, blist;
+    Button bSave, bSearch, bEdit, bDelete;
     TextView message;
 
     @Override
@@ -40,9 +35,9 @@ public class book extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book);
 
-        idbook = findViewById(R.id.etidBook);
+        Referencia = findViewById(R.id.etidBook);
         name = findViewById(R.id.etName);
-        cantidadDeLibros = findViewById(R.id.etCantidadDeLibros); // Nuevo campo
+        Unidad = findViewById(R.id.etCantidadDeLibros); // Nuevo campo
         precio = findViewById(R.id.etPrecio); // Nuevo campo
         sAvailable = findViewById(R.id.swAvalable);
         message = findViewById(R.id.tvMessageB);
@@ -50,15 +45,15 @@ public class book extends AppCompatActivity {
         bSearch = findViewById(R.id.btnSearch);
         bEdit = findViewById(R.id.btnedit);
         bDelete = findViewById(R.id.btndelete);
-        blist = findViewById(R.id.btnlist);
+
 
         // Evento de buscar libro
         bSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!idbook.getText().toString().isEmpty()) {
+                if (!Referencia.getText().toString().isEmpty()) {
                     db.collection("productos")
-                            .whereEqualTo("idbook", idbook.getText().toString())
+                            .whereEqualTo("Referencia", Referencia.getText().toString())
                             .get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
@@ -68,7 +63,7 @@ public class book extends AppCompatActivity {
                                             for (QueryDocumentSnapshot document : task.getResult()) {
                                                 // Asignar el contenido de los campos a los datos de pantalla
                                                 name.setText(document.getString("name"));
-                                                cantidadDeLibros.setText(String.valueOf(document.getLong("cantidadDeLibros")));;
+                                                Unidad.setText(String.valueOf(document.getLong("Unidad")));;
                                                 precio.setText(String.valueOf(document.getDouble("precio")));
 
                                                 sAvailable.setChecked(document.getDouble("available") == 1);
@@ -91,15 +86,15 @@ public class book extends AppCompatActivity {
         bSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String mIdBook = idbook.getText().toString();
+                String mReferencia = Referencia.getText().toString();
                 String mName = name.getText().toString();
-                int mCantidadDeLibros = Integer.parseInt(cantidadDeLibros.getText().toString());
+                int mUnidad = Integer.parseInt(Unidad.getText().toString());
                 double mPrecio = Double.parseDouble(precio.getText().toString());
                 int mAvailable = sAvailable.isChecked() ? 1 : 0;
 
-                if (checkData(mIdBook, mName, mCantidadDeLibros,mPrecio)) {
+                if (checkData(mReferencia, mName, mUnidad,mPrecio)) {
                     db.collection("productos")
-                            .whereEqualTo("idbook", mIdBook)
+                            .whereEqualTo("Referencia", mReferencia)
                             .get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
@@ -107,9 +102,9 @@ public class book extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         if (task.getResult().isEmpty()) {
                                             Map<String, Object> mapBook = new HashMap<>();
-                                            mapBook.put("idbook", mIdBook);
+                                            mapBook.put("Referencia", mReferencia);
                                             mapBook.put("name", mName);
-                                            mapBook.put("cantidadDeLibros", mCantidadDeLibros);
+                                            mapBook.put("Unidad", mUnidad);
                                             mapBook.put("precio", mPrecio);
                                             mapBook.put("available", mAvailable);
                                             db.collection("productos")
@@ -146,15 +141,15 @@ public class book extends AppCompatActivity {
         bEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String mIdBook = idbook.getText().toString();
+                String mReferencia = Referencia.getText().toString();
                 String mName = name.getText().toString();
-                int mCantidadDeLibros = Integer.parseInt(cantidadDeLibros.getText().toString());
+                int mUnidad = Integer.parseInt(Unidad.getText().toString());
                 double mPrecio = Double.parseDouble(precio.getText().toString());
                 int mAvailable = sAvailable.isChecked() ? 1 : 0;
 
-                if (checkData(mIdBook, mName ,mCantidadDeLibros,mPrecio)) {
+                if (checkData(mReferencia, mName ,mUnidad,mPrecio)) {
                     db.collection("productos")
-                            .whereEqualTo("idbook", mIdBook)
+                            .whereEqualTo("Referencia", mReferencia)
                             .get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
@@ -166,7 +161,7 @@ public class book extends AppCompatActivity {
                                                 db.collection("productos").document(docId)
                                                         .update(
                                                                 "name", mName,
-                                                                "cantidadDeLibros", mCantidadDeLibros,
+                                                                "Unidad", mUnidad,
                                                                 "precio", mPrecio,
                                                                 "available", mAvailable
                                                         )
@@ -197,11 +192,11 @@ public class book extends AppCompatActivity {
         bDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String mIdBook = idbook.getText().toString();
+                String mReferencia = Referencia.getText().toString();
 
-                if (!mIdBook.isEmpty()) {
+                if (!mReferencia.isEmpty()) {
                     db.collection("productos")
-                            .whereEqualTo("idbook", mIdBook)
+                            .whereEqualTo("Referencia", mReferencia)
                             .get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
@@ -236,11 +231,11 @@ public class book extends AppCompatActivity {
         });
     }
 
-    private boolean checkData(String mIdBook, String mName, int mCantidadDeLibros, double mPrecio) {
+    private boolean checkData(String mReferencia, String mName, int mUnidad, double mPrecio) {
         // Verificar que los campos no estén vacíos o no sean inválidos
-        return !mIdBook.isEmpty() &&
+        return !mReferencia.isEmpty() &&
                 !mName.isEmpty() &&
-                mCantidadDeLibros > 0 &&  // Asegurarse de que la cantidad sea mayor a 0
+                mUnidad > 0 &&  // Asegurarse de que la cantidad sea mayor a 0
                 mPrecio > 0;             // Asegurarse de que el precio sea mayor a 0
     }
 
